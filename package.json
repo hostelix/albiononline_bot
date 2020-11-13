@@ -1,0 +1,25 @@
+{
+  "name": "albiononline_bot",
+  "version": "1.0.0",
+  "description": "Bot for consulting prices market and calculate profit for crafting etc",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hostelix/albiononline_bot.git"
+  },
+  "keywords": [
+    "bot",
+    "albion",
+    "albiononline",
+    "game"
+  ],
+  "author": "Israel Lugo <hostelixisrael@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hostelix/albiononline_bot/issues"
+  },
+  "homepage": "https://github.com/hostelix/albiononline_bot#readme"
+}
