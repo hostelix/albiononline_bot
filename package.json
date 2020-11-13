@@ -24,7 +24,9 @@
   "homepage": "https://github.com/hostelix/albiononline_bot#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "moment": "^2.29.1",
     "mongodb": "^3.6.3",
+    "node-fetch": "^2.6.1",
     "node-telegram-bot-api": "^0.50.0"
   }
 }
