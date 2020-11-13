@@ -21,5 +21,10 @@
   "bugs": {
     "url": "https://github.com/hostelix/albiononline_bot/issues"
   },
-  "homepage": "https://github.com/hostelix/albiononline_bot#readme"
+  "homepage": "https://github.com/hostelix/albiononline_bot#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "mongodb": "^3.6.3",
+    "node-telegram-bot-api": "^0.50.0"
+  }
 }
