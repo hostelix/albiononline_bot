@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 const moment = require('moment');
-
+const { tierValueMaterial } = require('../resources');
 function parseItem(rawData) {
     const lang = 'ES-ES';
 
@@ -56,4 +56,43 @@ function generateMessage(dataItem) {
     return `<b>${dataItem.name}</b>\n${dataItem.description}\n\n${textMarket}`;
 }
 
-module.exports = { parseItem, thumbnailItem, fetchDataMarket, groupDataMarket, generateMessage };
+function calculateRefine(tierValue, quantity, percentage) {
+    //calcula el porcentaje
+    const percent = (percentage - 1.1) / 100;
+    //calcula el material a utilizar sin devolucion
+    const material = Math.round(quantity * tierValue);
+    //calcula la devolucion por el porcentaje.
+    const devolution = Math.round(material * percent);
+    //calcula material con devolucion
+    const materialNeed = material - devolution;
+    //calcula la cantidad de material del tier anterior
+    const materialBefore = quantity - Math.round(quantity * percent);
+
+    return { materialNeed, materialBefore };
+}
+
+function generateMessageRefine(tier, material, percentage) {
+    const tierIterations = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8'];
+    const tierValueIndex = tierIterations.findIndex(v => v === tier);
+
+    const main = `<pre>Tier:${tier} Cantidad Material:${material} Porcentaje:${percentage}% </pre>\n\n`;
+    let materialRaw = 'Material Bruto\n';
+    let materialProcceced = 'Material Procesado\n';
+
+    let tmpMaterial = material;
+    for (var i = tierValueIndex; i >= 0; i--) {
+        const tierValue = tierValueMaterial[tierIterations[i]];
+        const resultRefine = calculateRefine(tierValue, tmpMaterial, percentage);
+
+        materialRaw += `<b>Tier: </b>${i+ 2}\t ${resultRefine.materialNeed}\n`;
+        
+        if (i != 0) {
+            materialProcceced += `<b>Tier: </b>${i+ 1}\t ${resultRefine.materialBefore}\n`;
+        }
+        tmpMaterial = resultRefine.materialBefore;
+    }
+
+    return `${main}${materialRaw}\n${materialProcceced}`;
+}
+
+module.exports = { parseItem, thumbnailItem, fetchDataMarket, groupDataMarket, generateMessage, generateMessageRefine };
